@@ -315,15 +315,15 @@
             </goals>
           </execution>
         </executions>
-      </plugin>-->
+      </plugin>
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
         <configuration>
           <java>
             <eclipse>
-              <!-- Avro uses Sun's java code style conventions with 2 spaces, this is a modified version of
-                   the eclipse formatter -->
+               Avro uses Sun's java code style conventions with 2 spaces, this is a modified version of
+                   the eclipse formatter 
               <file>${main.basedir}/lang/java/eclipse-java-formatter.xml</file>
               <version>4.10.0</version>
             </eclipse>
@@ -335,7 +335,7 @@
         </configuration>
         <executions>
           <execution>
-            <!-- Runs in compile phase to fail fast in case of formatting issues.-->
+             Runs in compile phase to fail fast in case of formatting issues.
             <id>spotless-check</id>
             <phase>compile</phase>
             <goals>
@@ -343,7 +343,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin>-->
     </plugins>
   </build>
 
