@@ -247,7 +247,7 @@
   </profiles>
 
   <dependencies>
-     <!-- <dependency>
+   <!--  <dependency>
 	      <groupId>org.pitest</groupId>
 	      <artifactId>pitest-maven</artifactId>
 	      <version>1.5.1</version>
