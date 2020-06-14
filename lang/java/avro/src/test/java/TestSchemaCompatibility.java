@@ -35,8 +35,9 @@ public class TestSchemaCompatibility {
 	public static Collection<Object[]> data() {
 		Object[][] data = new Object[][] {
 
+				// -------------------Category Partition-----------------------
 				{ generateSimpleSchemasWithSameType(Type.BOOLEAN), true },
-				{ generateSchemasWithDifferentType(Type.BYTES, Type.BOOLEAN), false }, // semplici e tipo diverso
+				{ generateSchemasWithDifferentType(Type.BYTES, Type.STRING), true }, // semplici e tipo diverso
 				{ generateSimpleSchemasWithSameType(Type.DOUBLE), true },
 				{ generateSimpleSchemasWithSameType(Type.FLOAT), true },
 				{ generateSimpleSchemasWithSameType(Type.INT), true },
@@ -48,13 +49,44 @@ public class TestSchemaCompatibility {
 				{ generateSchemasWithDifferentType(Type.ENUM, Type.ARRAY), false }, // complex tipo diverso
 				{ generateComplexSchemasWithSameType(Type.FIXED, true), true },
 				{ generateComplexSchemasWithSameType(Type.MAP, true), true },
-				{ generateComplexSchemasWithSameType(Type.UNION, true), true },
-				{ generateSchemasWithDifferentType(null, null), new NullPointerException()/* new AssertionError() */ }, // entrambi
+				{ generateComplexSchemasWithSameType(Type.UNION, false), false },
+////				{ generateSchemasWithDifferentType(null, null), new AssertionError()}, // entrambi gli schemi sono null
+				{ generateSchemasWithDifferentType(null, null), new NullPointerException() },
 
+				// -------------------Coverage-----------------------
+
+				{ generateSimpleSchemasWithSameType(Type.BYTES), true }, // (linea 276)
+				{ generateSchemasWithDifferentType(Type.BOOLEAN, Type.STRING), false },
+				{ generateSchemasWithDifferentType(Type.LONG, Type.INT), true }, // (linea 341)
+				{ generateSchemasWithDifferentType(Type.LONG, Type.FLOAT), false },
+				{ generateSchemasWithDifferentType(Type.FLOAT, Type.INT), true }, // (linea 344)
+				{ generateSchemasWithDifferentType(Type.FLOAT, Type.DOUBLE), false },
+				{ generateSchemasWithDifferentType(Type.FLOAT, Type.LONG), true },
+				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.LONG), true },
+				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.FLOAT), true },
+				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.INT), true }, // (linea 349)
+				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.STRING), false },
+				{ generateSchemasWithDifferentType(Type.BYTES, Type.INT), false },
+				{ generateSchemasWithDifferentType(Type.STRING, Type.BYTES), true }, // (linea 357)
+				{ generateSchemasWithDifferentType(Type.RECORD, Type.BOOLEAN), false }, // (linea 369)
+				{ generateComplexSchemasWithSameType(Type.RECORD, false), false }, // introdotto alias record (linea
+				// 124)
+				{ generateSchemasWithDifferentType(Type.MAP, Type.BOOLEAN), false }, // (linea 363)
+				{ generateSchemasWithDifferentType(Type.ARRAY, Type.INT), false },
+				{ generateComplexSchemasWithSameType(Type.ENUM, false), false }, // enum stesso tipo (linea 292)
+				{ generateSchemasWithDifferentType(Type.FIXED, Type.BOOLEAN), false }, // (linea 365)
+				{ generateSchemasWithDifferentType(Type.NULL, Type.UNION), false }, // (linea 327 e 335)
 		};
 
 		return Arrays.asList(data);
 	}
+
+	/*
+	 * Schemi di tipo String e Bytes sono compatibili. Schemi di tipo Long, Float e
+	 * Double sono compatibili con schemi Int. Schemi di tipo Float e Double sono
+	 * compatibili con schemi Long. Double è compatibile con Float
+	 * 
+	 */
 
 	// Junit vuole AssertionError, Maven vuole NullPointerException
 
