@@ -19,11 +19,6 @@ public class SchemaUtils {
 			+ "\"name\": \"enumValue\",\n" + "\"type\": {\n" + "\"name\": \"EnumType\",\n" + "\"type\": \"enum\",\n"
 			+ "\"symbols\": [\n" + "\"val_a\",\n" + "\"val_b\"\n" + "]\n" + "}\n" + "}]}";
 
-//	private static String record1 = "{\"type\": \"record\",\n" + "\"namespace\": \"com.example\",\n"
-//			+ "\"name\": \"FullName\",\n" + "\"fields\": [\n"
-//			+ "{\"name\": \"first\", \"type\": [\"string\", \"null\"]," + "\"aliases\": [\"Nome\"]},\n"
-//			+ "{\"name\": \"last\", \"type\": \"enum\", \"default\" : \"Doe\" }\n" + "]\n" + "} ";
-
 	private static String record2 = "{\"type\": \"record\",\n" + "\"namespace\": \"com.example\",\n"
 			+ "\"name\": \"Data\",\n" + "\"fields\": [\n" + "{\"name\": \"Nome\", \"type\": [\"string\", \"null\"] },\n"
 			+ "{\"name\": \"Età\", \"type\": \"int\", \"default\" : 12 }\n" + "]\n" + "} ";
@@ -43,6 +38,16 @@ public class SchemaUtils {
 			+ "{\"name\": \"Nome\", \"type\": [\"string\", \"null\"] },\n"
 			+ "{\"name\": \"Età\", \"type\": \"int\", \"default\" : 12 }\n" + "]\n" + "} ";
 
+//	private static String recordForDatum = "{\"type\": \"record\",\n" + "\"namespace\": \"com.example\",\n"
+//			+ "\"name\": \"FullName\",\n" + "\"fields\": [\n"
+//			+ "{\"name\": \"first\", \"type\": [\"string\", \"null\"] },\n"
+//			+ "{\"name\": \"last\", \"type\": \"string\", \"default\" : \"Doe\" }\n" + "]\n" + "} ";
+
+	private static String recordForDatum = "{\"type\": \"record\",\n" + "\"namespace\": \"com.example\",\n"
+			+ "\"name\": \"FullName\",\n" + "\"fields\": [\n"
+			+ "{\"name\": \"first\", \"type\": [\"string\", \"null\"] },\n"
+			+ "{\"name\": \"last\", \"type\": \"string\"}\n" + "]\n" + "} ";
+
 	private static String map1 = "{\"type\" : \"map\", \"values\" : \"int\"}";
 	private static String map2 = "{\"type\" : \"map\", \"values\" : \"string\"}";
 
@@ -58,8 +63,8 @@ public class SchemaUtils {
 			+ "   \"name\" : \"empdetails\", \n" + "\"fields\" : \n" + "   [ \n"
 			+ "      {\"name\" : \"experience\", \"type\": [\"null\", \"int\"] } \n" + "   ] \n" + "}";
 
-	private static String fixed1 = "{\"type\" : \"fixed\" , \"name\" : \"bdata\", \"size\" : 1048576}";
-	private static String fixed2 = "{\"type\" : \"fixed\" , \"name\" : \"bdata\", \"size\" : 1048567}";
+	private static String fixed1 = "{\"type\" : \"fixed\" , \"name\" : \"bdata\", \"size\" : 0}";
+	private static String fixed2 = "{\"type\" : \"fixed\" , \"name\" : \"bdata\", \"size\" : 1}";
 
 	private static String enum1 = "{\"type\" : \"enum\",\n" + "\"name\" : \"Numbers\", \n"
 			+ "\"namespace\": \"data\", \n" + "\"symbols\" : [\"ONE\", \"TWO\", \"THREE\"]\n" + "}";
@@ -69,6 +74,14 @@ public class SchemaUtils {
 
 //  private static String enum2 = "{\"type\" : \"enum\",\n" + "\"name\" : \"Numbers\", \n" + "\"namespace\": \"data\", \n"
 //      + "\"symbols\" : [\"UNO\", \"DUE\", \"TRE\"]\n" + "}";
+
+//	valori di fixed originali: 1048576, 1048567
+
+	public static Schema generateRecordDatumSchema() {
+
+		Schema schema = new Schema.Parser().parse(recordForDatum);
+		return schema;
+	}
 
 	public static List<Schema> generateIntSchemas() {
 

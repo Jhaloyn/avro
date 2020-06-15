@@ -8,6 +8,7 @@ import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Type;
 import org.apache.avro.generic.GenericData;
+import org.apache.avro.util.Utf8;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -29,7 +30,7 @@ public class TestGenericData {
 	public TestGenericData(Schema schema, Object object1, Object object2, Object expectedValidate,
 			Object expectedCompare) {
 
-		this.expectedException = expectedException.none();
+		this.expectedException = ExpectedException.none();
 		this.schema = schema;
 		this.object1 = object1;
 		this.object2 = object2;
@@ -42,33 +43,17 @@ public class TestGenericData {
 	public static Collection<Object[]> data() {
 		Object[][] data = new Object[][] {
 
-				// Test senza metodo compare
-
-//				{ Schema.create(Type.INT), 1, true }, { Schema.create(Type.DOUBLE), 1.2, true },
-//				{ Schema.create(Type.FLOAT), 1.2F, true }, { Schema.create(Type.BOOLEAN), false, true },
-//				{ Schema.create(Type.LONG), 1L, true }, { Schema.create(Type.NULL), null, true },
-//				{ Schema.create(Type.STRING), "string", true },
-//				{ Schema.create(Type.BYTES), ByteBuffer.allocate(1), true },
-//				{ SchemaCompatibilityUtils.generateArraySchema(), CreateDatumUtils.createArrayDatum(1, 2, 3), true },
-//				{ SchemaCompatibilityUtils.generateMapSchema(),
-//						CreateDatumUtils.createMapDatum("Pari", "Dispari", 2, 4, 3), true },
-//				{ SchemaCompatibilityUtils.generateRecordSchema(), CreateDatumUtils.createRecordDatum("joe", "black"),
-//						true },
-//				{ SchemaCompatibilityUtils.generateEnumSchema(), CreateDatumUtils.createEnumSymbolDatum("ONE"), true },
-//				{ SchemaCompatibilityUtils.generateFixedSchema(), CreateDatumUtils.createFixedDatum(1048576), true },
-//				{ SchemaCompatibilityUtils.generateUnionSchema(), CreateDatumUtils.createUnionDatum(null, 23), true },
-//				{ Schema.create(Type.NULL), null, true },
-				// ----------------------------------------------------------------------------
+				// ----------------Category Partition--------------------------
 
 				{ Schema.create(Type.INT), 1, 1, true, true }, { Schema.create(Type.FLOAT), 1.0F, 1.1F, true, false },
-				{ Schema.create(Type.LONG), 1L, 1L, true, true }, { Schema.create(Type.DOUBLE), 1.0, 2.0, true, false },
-				{ Schema.create(Type.STRING), "c", "c", true, true },
+				{ Schema.create(Type.LONG), 1L, 1L, true, true }, { Schema.create(Type.DOUBLE), 1.0, 1.1, true, false },
+				{ Schema.create(Type.STRING), "c", "a", true, false }, // modificato per coverage linea 1153
 				{ Schema.create(Type.BYTES), ByteBuffer.allocate(1), ByteBuffer.allocate(2), true, false },
 				{ Schema.create(Type.BOOLEAN), true, true, true, true },
-				{ SchemaUtils.generateFixedSchema(), CreateDatumUtils.createFixedDatum(1048576),
-						CreateDatumUtils.createFixedDatum(1048545), true, false },
-//				{ SchemaUtils.generateRecordSchema(), CreateDatumUtils.createRecordDatum("joe", "black"),
-//						CreateDatumUtils.createEnumSymbolDatum("ONE"), true, new Exception() },
+				{ SchemaUtils.generateFixedSchema(), CreateDatumUtils.createFixedDatum(0),
+						CreateDatumUtils.createFixedDatum(1), true, false },
+				{ SchemaUtils.generateRecordDatumSchema(), CreateDatumUtils.createRecordDatum("joe", "black"),
+						CreateDatumUtils.createEnumSymbolDatum("ONE"), true, new Exception() },
 				{ SchemaUtils.generateMapSchema(), 1, CreateDatumUtils.createMapDatum("Pari", "Dispari", 2, 4, 3),
 						false, new Exception() },
 				{ SchemaUtils.generateEnumSchema(), CreateDatumUtils.createEnumSymbolDatum("ONE"),
@@ -78,24 +63,58 @@ public class TestGenericData {
 				{ SchemaUtils.generateUnionSchema(), CreateDatumUtils.createUnionDatum(null, 23),
 						CreateDatumUtils.createUnionDatum(1, 23), true, false },
 				{ Schema.create(Type.NULL), null, null, true, true },
-				{ null, 1, "c", new NullPointerException(), new NullPointerException() }
+				{ null, 1, "c", new NullPointerException(), new NullPointerException() },
 
-				// Test particolari magari da aggiungere con la coverage
-
-				// { SchemaCompatibilityUtils.generateMapSchema(),
-//						CreateDatumUtils.createMapDatum("Pari", "Dispari", 2, 4, 3),
-//						CreateDatumUtils.createMapDatum("Pari", "Dispari", 2, 4, 3), true,
-//						new AvroRuntimeException("Can't compare maps!") }, // che senso ha non poter comparare mai due
-//																			// mappe?
-//				{ SchemaCompatibilityUtils.generateEnumSchema(), CreateDatumUtils.createEnumSymbolDatum("ONE"),
-//				CreateDatumUtils.createEnumSymbolDatum("UNO"), true, new NullPointerException() }
-
+				// --------------------------Coverage---------------------------
+				{ SchemaUtils.generateRecordDatumSchema(), 1, CreateDatumUtils.createEnumSymbolDatum("ONE"), false,
+						new Exception() }, // linea 562
+				{ SchemaUtils.generateRecordSchema(), CreateDatumUtils.createRecordDatum("joe", "black"),
+						CreateDatumUtils.createEnumSymbolDatum("ONE"), false, new Exception() }, // linea 566
+				{ SchemaUtils.generateEnumSchema(), CreateDatumUtils.createFixedDatum(1),
+						CreateDatumUtils.createEnumSymbolDatum("ONE"), false, new Exception() }, // linea 571
+				{ SchemaUtils.generateArraySchema(), 1, 1, false, true }, // linea 575
+				{ SchemaUtils.generateArraySchema(), CreateDatumUtils.createArrayDatum("1", "2", "4"),
+						CreateDatumUtils.createArrayDatum("1", "2"), false, false }, // linea 578 e linea 1141
+				{ SchemaUtils.generateMapSchema(), CreateDatumUtils.createMapDatum("Pari", "Dispari", 2, 4, 3),
+						CreateDatumUtils.createMapDatum("Pari", "Dispari", 2, 4, 3), true,
+						new AvroRuntimeException("Can't compare maps!") }, // linea 588
+				{ SchemaUtils.generateMapSchema(),
+						CreateDatumUtils.createMapDatum("Vocali", "Consonanti", "a", "e", "s"),
+						CreateDatumUtils.createMapDatum("Vocali", "Consonanti", "a", "e", "s"), false,
+						new AvroRuntimeException("Can't compare maps!") }, // linea 587
+				{ SchemaUtils.generateFixedSchema(), CreateDatumUtils.createFixedDatum(1),
+						CreateDatumUtils.createFixedDatum(1), false, true }, // linea 597
+				{ SchemaUtils.generateFixedSchema(), 1, 1, false, true }, // linea 597
+				{ null, null, 1, new NullPointerException(), new NullPointerException() }, // linea 613
+				{ Schema.create(Type.NULL), null, 1, true, true }, // linea 1151
+				{ Schema.create(Type.STRING), new Utf8("c"), 1, true, false }, // linea 1153
+				{ Schema.create(Type.STRING), 1, new Utf8("a"), false, false }, // linea 1153
+				{ Schema.create(Type.STRING), 1, 1, false, true }, // linea 1153
+				{ Schema.create(Type.STRING), new Utf8("c"), new Utf8("a"), true, false }, // linea
+																							// 1153
+				{ SchemaUtils.generateRecordDatumSchema(), CreateDatumUtils.createRecordDatum("joe", "black"),
+						CreateDatumUtils.createRecordDatum("joe", "black"), true, true }, // linea 1127
+				{ SchemaUtils.generateArraySchema(), CreateDatumUtils.createArrayDatum("1", "2"),
+						CreateDatumUtils.createArrayDatum("1", "2", "3"), false, false }, // linea 1141
+				{ SchemaUtils.generateArraySchema(), CreateDatumUtils.createArrayDatum("1", "2", "3"),
+						CreateDatumUtils.createArrayDatum("1", "2", "3"), false, true }, // linea 1141
 		};
 		return Arrays.asList(data);
 	}
 
+	// NOTA: mappe uguali resituiscono un'eccezione perchè il confronto tra le
+	// mappe viene fatto solo quando il valore "equals" del metodo protected
+	// compare, invocato dal metodo pubblico compare che si sta testando, è uguale a
+	// true. Dato che all'invocazione del metodo pubblico compare il valore di
+	// "equals" è false, il confronto tra le mappe non viene effettuato e viene
+	// sempre restituita un'eccezione
+
 	@Test
 	public void validateTest() {
+
+		if (expectedValidate instanceof AvroRuntimeException) {
+			expectedException.expect(AvroRuntimeException.class);
+		}
 
 		if (expectedValidate instanceof NullPointerException) {
 			expectedException.expect(NullPointerException.class);
