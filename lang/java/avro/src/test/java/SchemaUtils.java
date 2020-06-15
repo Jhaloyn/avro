@@ -28,6 +28,21 @@ public class SchemaUtils {
 			+ "\"name\": \"Data\",\n" + "\"fields\": [\n" + "{\"name\": \"Nome\", \"type\": [\"string\", \"null\"] },\n"
 			+ "{\"name\": \"Età\", \"type\": \"int\", \"default\" : 12 }\n" + "]\n" + "} ";
 
+	// Stringa per la mutazione a riga 102 con false di SchemaCompatibility.
+	// Definisce un alias per il nome dello schema, che è uguale al nome del
+	// record2. Quindi, a uguaglianza di campi, i due schema sono compatibili
+	private static String recordForMutation1 = "{\"type\": \"record\",\n" + "\"namespace\": \"com.example\",\n"
+			+ "\"name\": \"DatiAnagrafici\",\"aliases\": [\"Data\"],\n" + "\"fields\": [\n"
+			+ "{\"name\": \"Nome\", \"type\": [\"string\", \"null\"] },\n"
+			+ "{\"name\": \"Età\", \"type\": \"int\", \"default\" : 12 }\n" + "]\n" + "} ";
+
+	// Stringa per la mutazione a riga 102 con true e per la mutazione a riga 901
+	// con true di SchemaCompatibility.
+	private static String recordForMutation2 = "{\"type\": \"record\",\n" + "\"namespace\": \"com.example\",\n"
+			+ "\"name\": \"DatiAnagrafici\",\n" + "\"fields\": [\n"
+			+ "{\"name\": \"Nome\", \"type\": [\"string\", \"null\"] },\n"
+			+ "{\"name\": \"Età\", \"type\": \"int\", \"default\" : 12 }\n" + "]\n" + "} ";
+
 	private static String map1 = "{\"type\" : \"map\", \"values\" : \"int\"}";
 	private static String map2 = "{\"type\" : \"map\", \"values\" : \"string\"}";
 
@@ -60,6 +75,18 @@ public class SchemaUtils {
 		List<Schema> schemasList = new ArrayList<Schema>();
 		schemasList.add(Schema.create(Type.INT));
 		schemasList.add(Schema.create(Type.INT));
+		return schemasList;
+	}
+
+	public static List<Schema> generateMutationRecordSchemas(int mutation) {
+
+		ArrayList<Schema> schemasList = new ArrayList<Schema>();
+		if (mutation == 1) {
+			schemasList.add(new Schema.Parser().parse(recordForMutation1));
+		} else {
+			schemasList.add(new Schema.Parser().parse(recordForMutation2));
+		}
+		schemasList.add(new Schema.Parser().parse(record2));
 		return schemasList;
 	}
 

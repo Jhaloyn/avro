@@ -50,7 +50,7 @@ public class TestSchemaCompatibility {
 				{ generateComplexSchemasWithSameType(Type.FIXED, true), true },
 				{ generateComplexSchemasWithSameType(Type.MAP, true), true },
 				{ generateComplexSchemasWithSameType(Type.UNION, false), false },
-////				{ generateSchemasWithDifferentType(null, null), new AssertionError()}, // entrambi gli schemi sono null
+//				{ generateSchemasWithDifferentType(null, null), new AssertionError() }, // entrambi gli schemi sono null
 				{ generateSchemasWithDifferentType(null, null), new NullPointerException() },
 
 				// -------------------Coverage-----------------------
@@ -76,6 +76,11 @@ public class TestSchemaCompatibility {
 				{ generateComplexSchemasWithSameType(Type.ENUM, false), false }, // enum stesso tipo (linea 292)
 				{ generateSchemasWithDifferentType(Type.FIXED, Type.BOOLEAN), false }, // (linea 365)
 				{ generateSchemasWithDifferentType(Type.NULL, Type.UNION), false }, // (linea 327 e 335)
+
+				// ---------------------------Mutation-----------------------
+				{ SchemaUtils.generateMutationRecordSchemas(1), true },
+				{ SchemaUtils.generateMutationRecordSchemas(2), false },
+
 		};
 
 		return Arrays.asList(data);
@@ -94,7 +99,7 @@ public class TestSchemaCompatibility {
 	public void checkReaderWriterCompatibilityTest() {
 
 //		if (expected instanceof AssertionError) {
-//			expectedException.expect(AssertionError.class);
+//			 expectedException.expect(AssertionError.class);
 //		}
 
 		if (expected instanceof NullPointerException) {
@@ -230,5 +235,4 @@ public class TestSchemaCompatibility {
 			return null;
 		}
 	}
-
 }

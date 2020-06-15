@@ -57,21 +57,6 @@
       </resource>
     </resources>
     <plugins>
-	<!--<plugin>
-        <groupId>org.pitest</groupId>
-        <artifactId>pitest-maven</artifactId>
-        <version>1.5.1</version>
-        <configuration>
-		<targetClasses>
-			<param>org.apache.avro.SchemaCompatibility</param>
-			<param>org.apache.avro.generic.GenericData</param>
-		</targetClasses>
-		<targetTests>
-			<param>TestSchemaCompatibility</param>
-			<param>TestGenericData</param>
-		</targetTests>
- 	</configuration>
-      </plugin>-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -133,6 +118,37 @@
   </build>
 
   <profiles>
+   <profile>
+	 <id>pit</id>
+	<build>
+        <plugins>
+	<plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>1.5.1</version>
+        <configuration>
+		<targetClasses>
+			<param>org.apache.avro.SchemaCompatibility</param>
+			<param>org.apache.avro.generic.GenericData</param>
+		</targetClasses>
+		<targetTests>
+			<param>TestSchemaCompatibility</param>
+			<param>TestGenericData</param>
+		</targetTests>
+ 	</configuration>
+      </plugin>
+      </plugins>
+      </build>
+	<dependencies>
+ 	 <dependency>
+	      <groupId>org.pitest</groupId>
+	      <artifactId>pitest-maven</artifactId>
+	      <version>1.5.1</version>
+	      <type>maven-plugin</type>
+   	 </dependency>
+	</dependencies>
+      </profile>
+
     <profile>
       <id>interop-data-generate</id>
       <activation>
@@ -140,6 +156,7 @@
       </activation>
       <build>
         <plugins>
+	
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
@@ -247,12 +264,7 @@
   </profiles>
 
   <dependencies>
-   <!--  <dependency>
-	      <groupId>org.pitest</groupId>
-	      <artifactId>pitest-maven</artifactId>
-	      <version>1.5.1</version>
-	      <type>maven-plugin</type>
-    </dependency>-->
+   
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
