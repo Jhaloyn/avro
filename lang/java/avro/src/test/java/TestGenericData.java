@@ -105,18 +105,19 @@ public class TestGenericData {
 								CreateDatumUtils.createUnionDatum("s", 23)) },
 				// linea 594
 				{ SchemaUtils.generateUnionSchema(), CreateDatumUtils.createUnionDatum("a", 23),
-						CreateDatumUtils.createUnionDatum(1, 23), false, new UnresolvedUnionException(
-								SchemaUtils.generateUnionSchema(), CreateDatumUtils.createUnionDatum(1, 23)) },
+						CreateDatumUtils.createUnionDatum(1, 23), false,
+						new UnresolvedUnionException(SchemaUtils.generateUnionSchema(),
+								CreateDatumUtils.createUnionDatum(1, 23)) },
 
 				// --------------------------Mutation..................................
 				// mutazione true linea 572
-//				{ SchemaUtils.generateEnumSchema(), CreateDatumUtils.createEnumSymbolDatum("UNO"),
-//						CreateDatumUtils.createEnumSymbolDatum("TWO"), false, new NullPointerException() },
-//				{ Schema.create(Type.BYTES), 1, 1, false, true }, // mutazione true linea 601
-//				{ Schema.create(Type.LONG), "a", "a", false, true }, // mutazione true linea 605 e 1035
-//				{ Schema.create(Type.FLOAT), "a", "a", false, true }, // mutazione true linea 607 e 1042
-//				{ Schema.create(Type.DOUBLE), "a", "a", false, true }, // mutazione true linea 609 e 1049
-//				{ Schema.create(Type.BOOLEAN), "a", "a", false, true }, // mutazione true linea 611 e 1056
+				{ SchemaUtils.generateEnumSchema(), CreateDatumUtils.createEnumSymbolDatum("UNO"),
+						CreateDatumUtils.createEnumSymbolDatum("TWO"), false, new NullPointerException() },
+				{ Schema.create(Type.BYTES), 1, 1, false, true }, // mutazione true linea 601
+				{ Schema.create(Type.LONG), "a", "a", false, true }, // mutazione true linea 605 e 1035
+				{ Schema.create(Type.FLOAT), "a", "a", false, true }, // mutazione true linea 607 e 1042
+				{ Schema.create(Type.DOUBLE), "a", "a", false, true }, // mutazione true linea 609 e 1049
+				{ Schema.create(Type.BOOLEAN), "a", "a", false, true }, // mutazione true linea 611 e 1056
 
 		};
 
