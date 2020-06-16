@@ -7,6 +7,7 @@ import java.util.Collection;
 import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.Schema;
 import org.apache.avro.Schema.Type;
+import org.apache.avro.UnresolvedUnionException;
 import org.apache.avro.generic.GenericData;
 import org.apache.avro.util.Utf8;
 import org.junit.Rule;
@@ -98,6 +99,16 @@ public class TestGenericData {
 						CreateDatumUtils.createArrayDatum("1", "2", "3"), false, false }, // linea 1141
 				{ SchemaUtils.generateArraySchema(), CreateDatumUtils.createArrayDatum("1", "2", "3"),
 						CreateDatumUtils.createArrayDatum("1", "2", "3"), false, true }, // linea 1141
+				{ SchemaUtils.generateUnionSchema(), CreateDatumUtils.createUnionDatum(1, 23),
+						CreateDatumUtils.createUnionDatum("s", 23), true, new UnresolvedUnionException(
+								SchemaUtils.generateUnionSchema(), CreateDatumUtils.createUnionDatum("s", 23)) }, // linea
+																													// 876
+
+				// --------------------------Mutation..................................
+				// mutazione true linea 572
+//				{ SchemaUtils.generateEnumSchema(), CreateDatumUtils.createEnumSymbolDatum("UNO"),
+//						CreateDatumUtils.createEnumSymbolDatum("TWO"), false, new NullPointerException() },
+
 		};
 		return Arrays.asList(data);
 	}
@@ -118,6 +129,10 @@ public class TestGenericData {
 
 		if (expectedValidate instanceof NullPointerException) {
 			expectedException.expect(NullPointerException.class);
+		}
+
+		if (expectedValidate instanceof UnresolvedUnionException) {
+			expectedException.expect(UnresolvedUnionException.class);
 		}
 
 		GenericData genericData = new GenericData();

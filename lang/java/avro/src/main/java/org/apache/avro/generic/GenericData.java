@@ -589,6 +589,7 @@ public class GenericData {
 		case UNION:
 			try {
 				int i = resolveUnion(schema, datum);
+				System.out.println(validate(schema.getTypes().get(i), datum));
 				return validate(schema.getTypes().get(i), datum);
 			} catch (UnresolvedUnionException e) {
 				return false;
