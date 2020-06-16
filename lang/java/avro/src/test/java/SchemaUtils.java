@@ -50,9 +50,8 @@ public class SchemaUtils {
 
 	private static String recordForDatumMutation = "{\"type\": \"record\",\n" + "\"namespace\": \"com.example\",\n"
 			+ "\"name\": \"FullName\",\n" + "\"fields\": [\n"
-			+ "{\"name\": \"first\", \"type\": [\"string\", \"null\"] },\n"
-			+ "{\"name\": \"bytes\", \"type\": {\"type\" : \"fixed\" ,\"name\" : \"bdata\", \"size\" : 0}}" + "]\n"
-			+ "} ";
+			+ "{\"name\": \"bytes\", \"type\": [{\"type\" : \"fixed\" ,\"name\" : \"bdata\", \"size\" : 1}, \"null\"] },\n"
+			+ "{\"name\": \"first\", \"type\": \"string\"}" + "]\n" + "} ";
 
 	private static String map1 = "{\"type\" : \"map\", \"values\" : \"int\"}";
 	private static String map2 = "{\"type\" : \"map\", \"values\" : \"string\"}";

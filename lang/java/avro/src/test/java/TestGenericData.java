@@ -118,8 +118,11 @@ public class TestGenericData {
 				{ Schema.create(Type.FLOAT), "a", "a", false, true }, // mutazione true linea 607 e 1042
 				{ Schema.create(Type.DOUBLE), "a", "a", false, true }, // mutazione true linea 609 e 1049
 				{ Schema.create(Type.BOOLEAN), "a", "a", false, true }, // mutazione true linea 611 e 1056
-
-		};
+				// mutazioni linea 1003, 1012
+				{ SchemaUtils.generateRecordDatumSchemaForMutation(), CreateDatumUtils.createRecordDatumMutation("joe"),
+						CreateDatumUtils.createRecordDatumMutation("joe"), false,
+						new UnresolvedUnionException(SchemaUtils.generateUnionSchema(),
+								CreateDatumUtils.createRecordDatumMutation("joe")) }, };
 
 		return Arrays.asList(data);
 	}
