@@ -87,29 +87,39 @@ public class TestGenericData {
 						CreateDatumUtils.createFixedDatum(1), false, true }, // linea 597
 				{ SchemaUtils.generateFixedSchema(), 1, 1, false, true }, // linea 597
 				{ null, null, 1, new NullPointerException(), new NullPointerException() }, // linea 613
-				{ Schema.create(Type.NULL), null, 1, true, true }, // linea 1151
+				{ Schema.create(Type.NULL), "a", 1, false, true }, // linee 1151 e 613
 				{ Schema.create(Type.STRING), new Utf8("c"), 1, true, false }, // linea 1153
 				{ Schema.create(Type.STRING), 1, new Utf8("a"), false, false }, // linea 1153
 				{ Schema.create(Type.STRING), 1, 1, false, true }, // linea 1153
-				{ Schema.create(Type.STRING), new Utf8("c"), new Utf8("a"), true, false }, // linea
-																							// 1153
+				{ Schema.create(Type.STRING), new Utf8("c"), new Utf8("a"), true, false }, // linea 1153
 				{ SchemaUtils.generateRecordDatumSchema(), CreateDatumUtils.createRecordDatum("joe", "black"),
 						CreateDatumUtils.createRecordDatum("joe", "black"), true, true }, // linea 1127
 				{ SchemaUtils.generateArraySchema(), CreateDatumUtils.createArrayDatum("1", "2"),
 						CreateDatumUtils.createArrayDatum("1", "2", "3"), false, false }, // linea 1141
 				{ SchemaUtils.generateArraySchema(), CreateDatumUtils.createArrayDatum("1", "2", "3"),
 						CreateDatumUtils.createArrayDatum("1", "2", "3"), false, true }, // linea 1141
+				// linea 876
 				{ SchemaUtils.generateUnionSchema(), CreateDatumUtils.createUnionDatum(1, 23),
-						CreateDatumUtils.createUnionDatum("s", 23), true, new UnresolvedUnionException(
-								SchemaUtils.generateUnionSchema(), CreateDatumUtils.createUnionDatum("s", 23)) }, // linea
-																													// 876
+						CreateDatumUtils.createUnionDatum("s", 23), true,
+						new UnresolvedUnionException(SchemaUtils.generateUnionSchema(),
+								CreateDatumUtils.createUnionDatum("s", 23)) },
+				// linea 594
+				{ SchemaUtils.generateUnionSchema(), CreateDatumUtils.createUnionDatum("a", 23),
+						CreateDatumUtils.createUnionDatum(1, 23), false, new UnresolvedUnionException(
+								SchemaUtils.generateUnionSchema(), CreateDatumUtils.createUnionDatum(1, 23)) },
 
 				// --------------------------Mutation..................................
 				// mutazione true linea 572
 //				{ SchemaUtils.generateEnumSchema(), CreateDatumUtils.createEnumSymbolDatum("UNO"),
 //						CreateDatumUtils.createEnumSymbolDatum("TWO"), false, new NullPointerException() },
+//				{ Schema.create(Type.BYTES), 1, 1, false, true }, // mutazione true linea 601
+//				{ Schema.create(Type.LONG), "a", "a", false, true }, // mutazione true linea 605 e 1035
+//				{ Schema.create(Type.FLOAT), "a", "a", false, true }, // mutazione true linea 607 e 1042
+//				{ Schema.create(Type.DOUBLE), "a", "a", false, true }, // mutazione true linea 609 e 1049
+//				{ Schema.create(Type.BOOLEAN), "a", "a", false, true }, // mutazione true linea 611 e 1056
 
 		};
+
 		return Arrays.asList(data);
 	}
 

@@ -48,6 +48,12 @@ public class SchemaUtils {
 			+ "{\"name\": \"first\", \"type\": [\"string\", \"null\"] },\n"
 			+ "{\"name\": \"last\", \"type\": \"string\"}\n" + "]\n" + "} ";
 
+	private static String recordForDatumMutation = "{\"type\": \"record\",\n" + "\"namespace\": \"com.example\",\n"
+			+ "\"name\": \"FullName\",\n" + "\"fields\": [\n"
+			+ "{\"name\": \"first\", \"type\": [\"string\", \"null\"] },\n"
+			+ "{\"name\": \"bytes\", \"type\": {\"type\" : \"fixed\" ,\"name\" : \"bdata\", \"size\" : 0}}" + "]\n"
+			+ "} ";
+
 	private static String map1 = "{\"type\" : \"map\", \"values\" : \"int\"}";
 	private static String map2 = "{\"type\" : \"map\", \"values\" : \"string\"}";
 
@@ -80,6 +86,12 @@ public class SchemaUtils {
 	public static Schema generateRecordDatumSchema() {
 
 		Schema schema = new Schema.Parser().parse(recordForDatum);
+		return schema;
+	}
+
+	public static Schema generateRecordDatumSchemaForMutation() {
+
+		Schema schema = new Schema.Parser().parse(recordForDatumMutation);
 		return schema;
 	}
 

@@ -50,6 +50,18 @@ public class CreateDatumUtils {
 		return genRec;
 	}
 
+//	public static <T> GenericRecord createRecordDatumMutation(T field1) {
+//
+//		GenericRecord genRec = new GenericData.Record(SchemaUtils.generateRecordDatumSchemaForMutation());
+//
+//		// Inserire i dati in accordo con lo schema
+//		genRec.put("first", field1);
+//		GenericFixed genericFixed = new GenericData.Fixed(SchemaUtils.generateFixedSchema(), new byte[0]);
+//		genRec.put("bytes", genericFixed);
+//
+//		return genRec;
+//	}
+
 	public static <T> GenericRecord createUnionDatum(T field1, T field2) {
 
 		GenericRecord genRec = new GenericData.Record(SchemaUtils.generateUnionSchema());

@@ -556,11 +556,11 @@ public class GenericData {
 
 	/** Returns true if a Java datum matches a schema. */
 	public boolean validate(Schema schema, Object datum) {
+
 		switch (schema.getType()) {
 		case RECORD:
 			if (!isRecord(datum))
 				return false;
-
 			for (Field f : schema.getFields()) {
 				if (!validate(f.schema(), getField(datum, f.name(), f.pos())))
 					return false;
@@ -589,7 +589,6 @@ public class GenericData {
 		case UNION:
 			try {
 				int i = resolveUnion(schema, datum);
-				System.out.println(validate(schema.getTypes().get(i), datum));
 				return validate(schema.getTypes().get(i), datum);
 			} catch (UnresolvedUnionException e) {
 				return false;
@@ -869,7 +868,6 @@ public class GenericData {
 				}
 			}
 		}
-
 		Integer i = union.getIndexNamed(getSchemaName(datum));
 		if (i != null) {
 			return i;
@@ -882,6 +880,7 @@ public class GenericData {
 	 * {@link #resolveUnion(Schema,Object)}.
 	 */
 	protected String getSchemaName(Object datum) {
+
 		if (datum == null || datum == JsonProperties.NULL_VALUE)
 			return Type.NULL.getName();
 		if (isRecord(datum))
@@ -908,6 +907,7 @@ public class GenericData {
 			return Type.DOUBLE.getName();
 		if (isBoolean(datum))
 			return Type.BOOLEAN.getName();
+
 		throw new AvroRuntimeException(String.format("Unknown datum type %s: %s", datum.getClass().getName(), datum));
 	}
 
