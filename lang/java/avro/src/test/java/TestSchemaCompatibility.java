@@ -53,7 +53,7 @@ public class TestSchemaCompatibility {
 //				{ generateSchemasWithDifferentType(null, null), new AssertionError() }, // entrambi gli schemi sono null
 				{ generateSchemasWithDifferentType(null, null), new NullPointerException() },
 
-				// -------------------Coverage-----------------------
+				// -------------------Coverage Strutturale-----------------------
 
 				{ generateSimpleSchemasWithSameType(Type.BYTES), true }, // (linea 276)
 				{ generateSchemasWithDifferentType(Type.BOOLEAN, Type.STRING), false },
@@ -77,9 +77,9 @@ public class TestSchemaCompatibility {
 				{ generateSchemasWithDifferentType(Type.FIXED, Type.BOOLEAN), false }, // (linea 365)
 				{ generateSchemasWithDifferentType(Type.NULL, Type.UNION), false }, // (linea 327 e 335)
 
-				// ---------------------------Mutation-----------------------
-				{ SchemaUtils.generateMutationRecordSchemas(1), true },
-				{ SchemaUtils.generateMutationRecordSchemas(2), false },
+				// ---------------------------Mutation testing-----------------------
+				{ SchemaUtils.generateMutationRecordSchemas(1), true }, // mutazione linea 102
+				{ SchemaUtils.generateMutationRecordSchemas(2), false },// mutazioni linee 102 e 901
 
 		};
 

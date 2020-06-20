@@ -56,7 +56,7 @@ public class TestGenericData {
 				{ SchemaUtils.generateRecordDatumSchema(), CreateDatumUtils.createRecordDatum("joe", "black"),
 						CreateDatumUtils.createEnumSymbolDatum("ONE"), true, new Exception() },
 				{ SchemaUtils.generateMapSchema(), 1, CreateDatumUtils.createMapDatum("Pari", "Dispari", 2, 4, 3),
-						false, new Exception() },
+						false, new AvroRuntimeException("Can't compare maps!") },
 				{ SchemaUtils.generateEnumSchema(), CreateDatumUtils.createEnumSymbolDatum("ONE"),
 						CreateDatumUtils.createEnumSymbolDatum("TWO"), true, false },
 				{ SchemaUtils.generateArraySchema(), CreateDatumUtils.createArrayDatum(1, 2, 3),
@@ -120,9 +120,10 @@ public class TestGenericData {
 				{ Schema.create(Type.BOOLEAN), "a", "a", false, true }, // mutazione true linea 611 e 1056
 				// mutazioni linea 1003, 1012
 				{ SchemaUtils.generateRecordDatumSchemaForMutation(), CreateDatumUtils.createRecordDatumMutation("joe"),
-						CreateDatumUtils.createRecordDatumMutation("joe"), false,
-						new UnresolvedUnionException(SchemaUtils.generateUnionSchema(),
-								CreateDatumUtils.createRecordDatumMutation("joe")) }, };
+						CreateDatumUtils.createRecordDatumMutation("joe"), false, new UnresolvedUnionException(
+								SchemaUtils.generateUnionSchema(), CreateDatumUtils.createRecordDatumMutation("joe")) },
+
+		};
 
 		return Arrays.asList(data);
 	}
