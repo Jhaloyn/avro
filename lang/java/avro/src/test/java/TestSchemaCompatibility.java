@@ -55,31 +55,30 @@ public class TestSchemaCompatibility {
 
 				// -------------------Coverage Strutturale-----------------------
 
-				{ generateSimpleSchemasWithSameType(Type.BYTES), true }, // (linea 276)
-				{ generateSchemasWithDifferentType(Type.BOOLEAN, Type.STRING), false },
-				{ generateSchemasWithDifferentType(Type.LONG, Type.INT), true }, // (linea 341)
-				{ generateSchemasWithDifferentType(Type.LONG, Type.FLOAT), false },
-				{ generateSchemasWithDifferentType(Type.FLOAT, Type.INT), true }, // (linea 344)
-				{ generateSchemasWithDifferentType(Type.FLOAT, Type.DOUBLE), false },
-				{ generateSchemasWithDifferentType(Type.FLOAT, Type.LONG), true },
-				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.LONG), true },
-				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.FLOAT), true },
-				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.INT), true }, // (linea 349)
-				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.STRING), false },
-				{ generateSchemasWithDifferentType(Type.BYTES, Type.INT), false },
-				{ generateSchemasWithDifferentType(Type.STRING, Type.BYTES), true }, // (linea 357)
-				{ generateSchemasWithDifferentType(Type.RECORD, Type.BOOLEAN), false }, // (linea 369)
+				{ generateSchemasWithDifferentType(Type.BOOLEAN, Type.STRING), false }, // linea 342
+				{ generateSchemasWithDifferentType(Type.LONG, Type.INT), true }, // (linea 346)
+				{ generateSchemasWithDifferentType(Type.LONG, Type.FLOAT), false }, // (linea 347)
+				{ generateSchemasWithDifferentType(Type.FLOAT, Type.INT), true }, // (linea 350)
+				{ generateSchemasWithDifferentType(Type.FLOAT, Type.DOUBLE), false }, // linea 351
+				{ generateSchemasWithDifferentType(Type.FLOAT, Type.LONG), true }, // (linea 350)
+				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.LONG), true }, // (linea 355)
+				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.FLOAT), true }, // (linea 356)
+				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.INT), true }, // (linea 355)
+				{ generateSchemasWithDifferentType(Type.DOUBLE, Type.STRING), false }, // (linea 357)
+				{ generateSchemasWithDifferentType(Type.BYTES, Type.INT), false }, // linea 360
+				{ generateSchemasWithDifferentType(Type.STRING, Type.BYTES), true }, // (linea 364)
+				{ generateSchemasWithDifferentType(Type.RECORD, Type.BOOLEAN), false }, // (linea 377)
 				{ generateComplexSchemasWithSameType(Type.RECORD, false), false }, // introdotto alias record (linea
 				// 124)
-				{ generateSchemasWithDifferentType(Type.MAP, Type.BOOLEAN), false }, // (linea 363)
-				{ generateSchemasWithDifferentType(Type.ARRAY, Type.INT), false },
-				{ generateComplexSchemasWithSameType(Type.ENUM, false), false }, // enum stesso tipo (linea 292)
-				{ generateSchemasWithDifferentType(Type.FIXED, Type.BOOLEAN), false }, // (linea 365)
-				{ generateSchemasWithDifferentType(Type.NULL, Type.UNION), false }, // (linea 327 e 335)
+				{ generateSchemasWithDifferentType(Type.MAP, Type.BOOLEAN), false }, // (linea 371)
+				{ generateSchemasWithDifferentType(Type.ARRAY, Type.INT), false }, // linea 369
+				{ generateComplexSchemasWithSameType(Type.ENUM, false), false }, // enum stesso tipo (linea 295)
+				{ generateSchemasWithDifferentType(Type.FIXED, Type.BOOLEAN), false }, // (linea 373)
+				{ generateSchemasWithDifferentType(Type.NULL, Type.UNION), false }, // (linea 340)
 
 				// ---------------------------Mutation testing-----------------------
-				{ SchemaUtils.generateMutationRecordSchemas(1), true }, // mutazione linea 102
-				{ SchemaUtils.generateMutationRecordSchemas(2), false },// mutazioni linee 102 e 901
+//				{ SchemaUtils.generateMutationRecordSchemas(1), true }, // mutazione linea 102
+//				{ SchemaUtils.generateMutationRecordSchemas(2), false },// mutazioni linee 102 e 901
 
 		};
 
