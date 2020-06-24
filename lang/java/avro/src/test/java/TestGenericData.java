@@ -66,7 +66,7 @@ public class TestGenericData {
 				{ Schema.create(Type.NULL), null, null, true, true },
 				{ null, 1, "c", new NullPointerException(), new NullPointerException() },
 
-				// --------------------------Coverage---------------------------
+				// --------------------------Coverage Strutturale---------------------------
 				{ SchemaUtils.generateRecordDatumSchema(), 1, CreateDatumUtils.createEnumSymbolDatum("ONE"), false,
 						new Exception() }, // linea 562
 				{ SchemaUtils.generateRecordSchema(), CreateDatumUtils.createRecordDatum("joe", "black"),
@@ -109,15 +109,15 @@ public class TestGenericData {
 						new UnresolvedUnionException(SchemaUtils.generateUnionSchema(),
 								CreateDatumUtils.createUnionDatum(1, 23)) },
 
-				// --------------------------Mutation..................................
+				// --------------------------Mutation Testing..................................
 				// mutazione true linea 572
 				{ SchemaUtils.generateEnumSchema(), CreateDatumUtils.createEnumSymbolDatum("UNO"),
 						CreateDatumUtils.createEnumSymbolDatum("TWO"), false, new NullPointerException() },
 				{ Schema.create(Type.BYTES), 1, 1, false, true }, // mutazione true linea 601
-				{ Schema.create(Type.LONG), "a", "a", false, true }, // mutazione true linea 605 e 1035
-				{ Schema.create(Type.FLOAT), "a", "a", false, true }, // mutazione true linea 607 e 1042
-				{ Schema.create(Type.DOUBLE), "a", "a", false, true }, // mutazione true linea 609 e 1049
-				{ Schema.create(Type.BOOLEAN), "a", "a", false, true }, // mutazione true linea 611 e 1056
+				{ Schema.create(Type.LONG), "a", "a", false, true }, // mutazione true linea 605 e 1036
+				{ Schema.create(Type.FLOAT), "a", "a", false, true }, // mutazione true linea 607 e 1043
+				{ Schema.create(Type.DOUBLE), "a", "a", false, true }, // mutazione true linea 609 e 1050
+				{ Schema.create(Type.BOOLEAN), "a", "a", false, true }, // mutazione true linea 611 e 1057
 				// mutazioni linea 1003, 1012
 				{ SchemaUtils.generateRecordDatumSchemaForMutation(), CreateDatumUtils.createRecordDatumMutation("joe"),
 						CreateDatumUtils.createRecordDatumMutation("joe"), false, new UnresolvedUnionException(

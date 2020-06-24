@@ -77,8 +77,8 @@ public class TestSchemaCompatibility {
 				{ generateSchemasWithDifferentType(Type.NULL, Type.UNION), false }, // (linea 340)
 
 				// ---------------------------Mutation testing-----------------------
-//				{ SchemaUtils.generateMutationRecordSchemas(1), true }, // mutazione linea 102
-//				{ SchemaUtils.generateMutationRecordSchemas(2), false },// mutazioni linee 102 e 901
+				{ SchemaUtils.generateMutationRecordSchemas(1), true }, // mutazione linea 102
+				{ SchemaUtils.generateMutationRecordSchemas(2), false },// mutazioni linee 102 e 901
 
 		};
 
