@@ -14,11 +14,11 @@ Test-coverage/avro,org.apache.avro.generic,GenericData.Record,144,45,17,3,26,12,
 Test-coverage/avro,org.apache.avro.generic,GenericArray,4,0,0,0,3,0,2,0,2,0
 Test-coverage/avro,org.apache.avro.generic,GenericData.StringType,34,0,0,0,2,0,1,0,1,0
 Test-coverage/avro,org.apache.avro.generic,GenericRecordBuilder,290,0,22,0,59,0,31,0,20,0
-Test-coverage/avro,org.apache.avro.generic,GenericData.Fixed,48,30,6,0,15,7,10,4,7,4
+Test-coverage/avro,org.apache.avro.generic,GenericData.Fixed,45,33,6,0,14,8,9,5,6,5
 Test-coverage/avro,org.apache.avro.generic,GenericDatumReader,978,0,108,0,212,0,112,0,45,0
 Test-coverage/avro,org.apache.avro.generic,GenericData.Array,343,0,30,0,64,0,31,0,16,0
 Test-coverage/avro,org.apache.avro.generic,GenericData.Array.new Iterator() {...},35,0,2,0,5,0,5,0,4,0
-Test-coverage/avro,org.apache.avro.generic,GenericData,1474,697,236,113,322,155,183,79,33,27
+Test-coverage/avro,org.apache.avro.generic,GenericData,1465,706,235,114,320,157,181,81,32,28
 Test-coverage/avro,org.apache.avro.generic,GenericDatumWriter,514,0,39,0,128,0,52,0,26,0
 Test-coverage/avro,org.apache.avro.generic,GenericData.EnumSymbol,38,12,6,0,8,5,8,2,5,2
 Test-coverage/avro,org.apache.avro.data,TimeConversions.LocalTimestampMillisConversion,39,0,0,0,9,0,6,0,6,0

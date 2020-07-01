@@ -458,7 +458,7 @@ public class GenericData {
 
 		@Override
 		public Schema getSchema() {
-<span class="nc" id="L461">			return schema;</span>
+<span class="fc" id="L461">			return schema;</span>
 		}
 
 		public void bytes(byte[] bytes) {
@@ -891,8 +891,8 @@ public class GenericData {
 <span class="nc" id="L891">			return Type.ARRAY.getName();</span>
 <span class="pc bpc" id="L892" title="1 of 2 branches missed.">		if (isMap(datum))</span>
 <span class="nc" id="L893">			return Type.MAP.getName();</span>
-<span class="pc bpc" id="L894" title="1 of 2 branches missed.">		if (isFixed(datum))</span>
-<span class="nc" id="L895">			return getFixedSchema(datum).getFullName();</span>
+<span class="fc bfc" id="L894" title="All 2 branches covered.">		if (isFixed(datum))</span>
+<span class="fc" id="L895">			return getFixedSchema(datum).getFullName();</span>
 <span class="fc bfc" id="L896" title="All 2 branches covered.">		if (isString(datum))</span>
 <span class="fc" id="L897">			return Type.STRING.getName();</span>
 <span class="pc bpc" id="L898" title="1 of 2 branches missed.">		if (isBytes(datum))</span>
@@ -1009,7 +1009,7 @@ public class GenericData {
 	 * representations.
 	 */
 	protected Schema getFixedSchema(Object fixed) {
-<span class="nc" id="L1012">		return ((GenericContainer) fixed).getSchema();</span>
+<span class="fc" id="L1012">		return ((GenericContainer) fixed).getSchema();</span>
 	}
 
 	/** Called by the default implementation of {@link #instanceOf}. */
